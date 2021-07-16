@@ -1,0 +1,963 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://aws-certification.com/cicd/cicd_models_container/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
+    
+    
+      
+        <title>Container Model - hogehoge's Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#CICD-Container-Model" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="hogehoge&#39;s Docs" class="md-header__button md-logo" aria-label="hogehoge's Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            hogehoge's Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Container Model
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent=""  aria-label="ダークモードに切り替え / Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="ダークモードに切り替え / Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent=""  aria-label="ライトモードに切り替え / Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="ライトモードに切り替え / Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="クリア" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../about/" class="md-tabs__link">
+      About
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../infra/aws_tldr/" class="md-tabs__link">
+        AWS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cicd_tldr/" class="md-tabs__link md-tabs__link--active">
+        CI/CD
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="hogehoge&#39;s Docs" class="md-nav__button md-logo" aria-label="hogehoge's Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    hogehoge's Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        AWS
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AWS" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          AWS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infra/aws_tldr/" class="md-nav__link">
+        TL;DR
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" data-md-state="indeterminate" type="checkbox" id="__nav_3_2" checked>
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        Models
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_1" data-md-state="indeterminate" type="checkbox" id="__nav_3_2_1" checked>
+      
+      <label class="md-nav__link" for="__nav_3_2_1">
+        WebApplicatin
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="WebApplicatin" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          WebApplicatin
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infra/models/webapp/aws_webapp_3tiers/" class="md-nav__link">
+        3Tiers
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_2" data-md-state="indeterminate" type="checkbox" id="__nav_3_2_2" checked>
+      
+      <label class="md-nav__link" for="__nav_3_2_2">
+        Serverless
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Serverless" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Serverless
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infra/models/serverless/aws_serverless/" class="md-nav__link">
+        SinglePageApplication
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        CI/CD
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cicd_tldr/" class="md-nav__link">
+        TL;DR
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Container Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Container Model
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-Architecture" class="md-nav__link">
+    1. Architecture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-IAM" class="md-nav__link">
+    2. IAM
+  </a>
+  
+    <nav class="md-nav" aria-label="2. IAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-IAM-User-作成" class="md-nav__link">
+    2.1. IAM User 作成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-IAM-Role-作成" class="md-nav__link">
+    2.2. IAM Role 作成
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-CircleCI" class="md-nav__link">
+    3. CircleCI
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-Architecture" class="md-nav__link">
+    1. Architecture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-IAM" class="md-nav__link">
+    2. IAM
+  </a>
+  
+    <nav class="md-nav" aria-label="2. IAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-IAM-User-作成" class="md-nav__link">
+    2.1. IAM User 作成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-IAM-Role-作成" class="md-nav__link">
+    2.2. IAM Role 作成
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-CircleCI" class="md-nav__link">
+    3. CircleCI
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="CICD-Container-Model">CI/CD Container Model<a class="headerlink" href="#CICD-Container-Model" title="Permanent link">&para;</a></h1>
+<p><br/></p>
+<h2 id="1-Architecture">1. Architecture<a class="headerlink" href="#1-Architecture" title="Permanent link">&para;</a></h2>
+<p>構成は以下の通り. </p>
+<p><img alt="./img/cicd_pipeline_container.png" src="../img/cicd_pipeline_container.png" /></p>
+<p>上の図を解説すると
+- ブランチはmainとdevの2種類あり, mainブランチをprd(本番)環境相当のブランチとする. 
+- DeveloperとReviwerの2人が存在. DeveloperのPullReqを承認することでMerge. 
+- CircleCI によってコンテナビルド. ECRへPushする場合, AWSの一時的なセキュリティ認証情報を利用してECRへPush.</p>
+<p><br/><br/></p>
+<h2 id="2-IAM">2. IAM<a class="headerlink" href="#2-IAM" title="Permanent link">&para;</a></h2>
+<h4 id="21-IAM-User-作成">2.1. IAM User 作成<a class="headerlink" href="#21-IAM-User-作成" title="Permanent link">&para;</a></h4>
+<ul>
+<li>IAMユーザー作成. <code>cicd-circleci-001</code></li>
+<li>アクセスキーを作成. <strong>アクセスキー</strong>と<strong>シークレットアクセスキー</strong>を保存.</li>
+<li>
+<p>IAMポリシー <code>cicd-policy-assumeRoleCircleCIRole-001</code> を以下のように作成. 
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 1</span>{
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 2</span>    <span style="color: #008000; font-weight: bold">&quot;Version&quot;</span>: <span style="color: #BA2121">&quot;2012-10-17&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 3</span>    <span style="color: #008000; font-weight: bold">&quot;Statement&quot;</span>: [
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 4</span>        {
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 5</span>            <span style="color: #008000; font-weight: bold">&quot;Effect&quot;</span>: <span style="color: #BA2121">&quot;Allow&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 6</span>            <span style="color: #008000; font-weight: bold">&quot;Action&quot;</span>: <span style="color: #BA2121">&quot;sts:AssumeRole&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 7</span>            <span style="color: #008000; font-weight: bold">&quot;Resource&quot;</span>: <span style="color: #BA2121">&quot;arn:aws:iam::[account_id]:role/cicd-role-pushContainerImagesToECR-001&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 8</span>        }
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 9</span>    ]
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">10</span>}
+</code></pre></div></p>
+</li>
+<li>
+<p>作成したポリシーをIAMユーザー<code>cicd-circleci-01</code>にアタッチ.</p>
+</li>
+</ul>
+<p><br/></p>
+<h4 id="22-IAM-Role-作成">2.2. IAM Role 作成<a class="headerlink" href="#22-IAM-Role-作成" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>IAM Role <code>cicd-role-ecrPushImages-001</code> 作成. 信頼エンティティを<strong>アカウントID</strong>に指定. 
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 1</span>{
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 2</span>  <span style="color: #008000; font-weight: bold">&quot;Version&quot;</span>: <span style="color: #BA2121">&quot;2012-10-17&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 3</span>  <span style="color: #008000; font-weight: bold">&quot;Statement&quot;</span>: [
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 4</span>    {
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 5</span>      <span style="color: #008000; font-weight: bold">&quot;Effect&quot;</span>: <span style="color: #BA2121">&quot;Allow&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 6</span>      <span style="color: #008000; font-weight: bold">&quot;Principal&quot;</span>: {
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 7</span>        <span style="color: #008000; font-weight: bold">&quot;AWS&quot;</span>: <span style="color: #BA2121">&quot;arn:aws:iam::[account_id]:root&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 8</span>      },
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 9</span>      <span style="color: #008000; font-weight: bold">&quot;Action&quot;</span>: <span style="color: #BA2121">&quot;sts:AssumeRole&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">10</span>      <span style="color: #008000; font-weight: bold">&quot;Condition&quot;</span>: {}
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">11</span>    }
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">12</span>  ]
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">13</span>}
+</code></pre></div></p>
+</li>
+<li>
+<p>IAM Policy <code>cicd-policy-ecrPushImages-001</code>を作成. ECRにコンテナイメージPushするための権限を付与. 
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 1</span>{
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 2</span>    <span style="color: #008000; font-weight: bold">&quot;Version&quot;</span>: <span style="color: #BA2121">&quot;2012-10-17&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 3</span>    <span style="color: #008000; font-weight: bold">&quot;Statement&quot;</span>: [
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 4</span>        {
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 5</span>            <span style="color: #008000; font-weight: bold">&quot;Effect&quot;</span>: <span style="color: #BA2121">&quot;Allow&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 6</span>            <span style="color: #008000; font-weight: bold">&quot;Action&quot;</span>: [
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 7</span>                <span style="color: #BA2121">&quot;ecr:PutImageScanningConfiguration&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 8</span>                <span style="color: #BA2121">&quot;ecr:CompleteLayerUpload&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 9</span>                <span style="color: #BA2121">&quot;ecr:UploadLayerPart&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">10</span>                <span style="color: #BA2121">&quot;ecr:InitiateLayerUpload&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">11</span>                <span style="color: #BA2121">&quot;ecr:BatchCheckLayerAvailability&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">12</span>                <span style="color: #BA2121">&quot;ecr:PutImage&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">13</span>            ],
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">14</span>            <span style="color: #008000; font-weight: bold">&quot;Resource&quot;</span>: <span style="color: #BA2121">&quot;arn:aws:ecr:[region]:[account_id]:repository/*&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">15</span>        },
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">16</span>        {
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">17</span>            <span style="color: #008000; font-weight: bold">&quot;Effect&quot;</span>: <span style="color: #BA2121">&quot;Allow&quot;</span>,
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">18</span>            <span style="color: #008000; font-weight: bold">&quot;Action&quot;</span>: [
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">19</span>                <span style="color: #BA2121">&quot;ecr:GetAuthorizationToken&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">20</span>            ],
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">21</span>            <span style="color: #008000; font-weight: bold">&quot;Resource&quot;</span>: <span style="color: #BA2121">&quot;*&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">22</span>        }
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">23</span>    ]
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">24</span>}
+</code></pre></div></p>
+</li>
+<li>
+<p>IAM Role <code>cicd-role-ecrPushImages-001</code> に IAM Policy <code>cicd-policy-ecrPushImages-001</code> をアタッチ.</p>
+</li>
+</ul>
+<p><br/><br/></p>
+<h2 id="3-CircleCI">3. CircleCI<a class="headerlink" href="#3-CircleCI" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>コンテナリソースを管理するGitHubリポジトリに, <code>.circleci/config.yml</code>を作成
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 1</span><span style="color: #008000; font-weight: bold">version</span>: 2.1
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 2</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 3</span><span style="color: #008000; font-weight: bold">executors</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 4</span>  <span style="color: #008000; font-weight: bold">work_container</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 5</span>    <span style="color: #008000; font-weight: bold">docker</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 6</span>      - <span style="color: #008000; font-weight: bold">image</span>: circleci/node:12.13.1
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 7</span>      - <span style="color: #008000; font-weight: bold">image</span>: circleci/python:3.8.4
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 8</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"> 9</span><span style="color: #408080; font-style: italic"># オーブの設定</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">10</span><span style="color: #008000; font-weight: bold">orbs</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">11</span>  <span style="color: #008000; font-weight: bold">aws-cli</span>: circleci/aws-cli@1.4.0
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">12</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">13</span><span style="color: #008000; font-weight: bold">commands</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">14</span>  <span style="color: #008000; font-weight: bold">set_credential</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">15</span>    <span style="color: #008000; font-weight: bold">description</span>: <span style="color: #BA2121">&quot;一時認証セッション取得&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">16</span>    <span style="color: #008000; font-weight: bold">parameters</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">17</span>      <span style="color: #008000; font-weight: bold">duration_second</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">18</span>        <span style="color: #008000; font-weight: bold">description</span>: <span style="color: #BA2121">&quot;セッション保持期間&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">19</span>        <span style="color: #008000; font-weight: bold">type</span>: integer
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">20</span>        <span style="color: #008000; font-weight: bold">default</span>: 3600
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">21</span>    <span style="color: #008000; font-weight: bold">steps</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">22</span>      - <span style="color: #008000; font-weight: bold">run</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">23</span>          <span style="color: #008000; font-weight: bold">name</span>: set-credential
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">24</span>          <span style="color: #408080; font-style: italic"># 一時認証トークンaws_sts_credentialsを生成して, ECRへログイン.image Push </span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">25</span>          <span style="color: #008000; font-weight: bold">command</span>: |
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">26</span>            <span style="color: #880000">aws_sts_credentials=&quot;$(aws sts assume-role \</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">27</span>              <span style="color: #880000">--role-arn ${AWS_ASSUME_ROLE_ARN} \</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">28</span>              <span style="color: #880000">--role-session-name &quot;circleci-session&quot; \</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">29</span>              <span style="color: #880000">--duration-seconds &lt;&lt;parameters.duration_second&gt;&gt; \</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">30</span>              <span style="color: #880000">--query &quot;Credentials&quot; \</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">31</span>              <span style="color: #880000">--output &quot;json&quot;)&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">32</span>            <span style="color: #880000">export AWS_ACCESS_KEY_ID=&quot;$(echo $aws_sts_credentials | jq -r &#39;.Credentials.AccessKeyId&#39;)&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">33</span>            <span style="color: #880000">export AWS_SECRET_ACCESS_KEY=&quot;$(echo $aws_sts_credentials | jq -r &#39;.Credentials.SecretAccessKey&#39;)&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">34</span>            <span style="color: #880000">export AWS_SESSION_TOKEN=&quot;$(echo $aws_sts_credentials | jq -r &#39;.Credentials.SessionToken&#39;)&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">35</span>  <span style="color: #008000; font-weight: bold">ecr_login</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">36</span>    <span style="color: #008000; font-weight: bold">description</span>: <span style="color: #BA2121">&quot;ECRログイン&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">37</span>    <span style="color: #008000; font-weight: bold">steps</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">38</span>      - <span style="color: #008000; font-weight: bold">run</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">39</span>          <span style="color: #008000; font-weight: bold">name</span>: ecr_login
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">40</span>          <span style="color: #408080; font-style: italic"># ECR ログイン</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">41</span>          <span style="color: #008000; font-weight: bold">command</span>: |
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">42</span>            <span style="color: #880000">aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com    </span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">43</span>  <span style="color: #008000; font-weight: bold">docker_push</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">44</span>    <span style="color: #008000; font-weight: bold">description</span>: <span style="color: #BA2121">&quot;ecrレジストリへpush&quot;</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">45</span>    <span style="color: #008000; font-weight: bold">steps</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">46</span>      - <span style="color: #008000; font-weight: bold">run</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">47</span>          <span style="color: #008000; font-weight: bold">name</span>: docker_push
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">48</span>          <span style="color: #408080; font-style: italic"># 一時認証トークンaws_sts_credentialsを生成して, ECRへログイン, Push </span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">49</span>          <span style="color: #008000; font-weight: bold">command</span>: |
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">50</span>            <span style="color: #880000">docker build -t ${AWS_ECR_REGISTORY_NAME} .</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">51</span>            <span style="color: #880000">docker tag ${AWS_ECR_REGISTORY_NAME}:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REGISTORY_NAME}:latest</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">52</span>            <span style="color: #880000">docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REGISTORY_NAME}:latest</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">53</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">54</span><span style="color: #408080; font-style: italic"># このプロジェクトで実行するジョブの定義</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">55</span><span style="color: #008000; font-weight: bold">jobs</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">56</span>  <span style="color: #008000; font-weight: bold">build</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">57</span>    <span style="color: #008000; font-weight: bold">executor</span>: work_container
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">58</span>    <span style="color: #008000; font-weight: bold">steps</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">59</span>      - checkout
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">60</span>      - <span style="color: #008000; font-weight: bold">setup_remote_docker</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">61</span>          <span style="color: #008000; font-weight: bold">version</span>: 19.03.13
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">62</span>          <span style="color: #408080; font-style: italic">#docker_layer_caching: true</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">63</span>      - <span style="color: #008000; font-weight: bold">run</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">64</span>          <span style="color: #008000; font-weight: bold">name</span>: docker build
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">65</span>          <span style="color: #008000; font-weight: bold">command</span>: |
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">66</span>            <span style="color: #880000">docker build -t ${AWS_ECR_REGISTORY_NAME} .</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">67</span>  <span style="color: #008000; font-weight: bold">deploy</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">68</span>    <span style="color: #008000; font-weight: bold">executor</span>: work_container
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">69</span>    <span style="color: #008000; font-weight: bold">steps</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">70</span>      - checkout
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">71</span>      - aws-cli/install
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">72</span>      - <span style="color: #008000; font-weight: bold">setup_remote_docker</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">73</span>          <span style="color: #008000; font-weight: bold">version</span>: 19.03.13
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">74</span>          <span style="color: #408080; font-style: italic">#docker_layer_caching: true</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">75</span>      - set_credential
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">76</span>      - ecr_login
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">77</span>      - docker_push
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">78</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">79</span><span style="color: #408080; font-style: italic"># ジョブの実行順の指定</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">80</span><span style="color: #008000; font-weight: bold">workflows</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">81</span>  <span style="color: #008000; font-weight: bold">version</span>: 2
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">82</span>  <span style="color: #008000; font-weight: bold">build-and-deploy</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">83</span>    <span style="color: #008000; font-weight: bold">jobs</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">84</span>      - <span style="color: #008000; font-weight: bold">build</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">85</span>          <span style="color: #008000; font-weight: bold">filters</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">86</span>            <span style="color: #008000; font-weight: bold">branches</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">87</span>              <span style="color: #008000; font-weight: bold">ignore</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">88</span>                - /feature-.*/
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">89</span>      - <span style="color: #008000; font-weight: bold">deploy</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">90</span>          <span style="color: #008000; font-weight: bold">requires</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">91</span>            - build
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">92</span>          <span style="color: #008000; font-weight: bold">filters</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">93</span>            <span style="color: #008000; font-weight: bold">branches</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">94</span>              <span style="color: #008000; font-weight: bold">only</span>:
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">95</span>                - dev <span style="color: #408080; font-style: italic"># deploy dev registory</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">96</span>                - prd <span style="color: #408080; font-style: italic"># deploy prd registory</span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;">97</span>                - /hotfix-.*/ <span style="color: #408080; font-style: italic"># deploy prd registory</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>CircleCIコンソールを開き, <code>All Pipelines &gt; [repository_name] &gt; Environment Variables</code> を開き, 以下のように環境変数を定義.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>parameter name</th>
+<th>value</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AWS_ACCESS_KEY_ID</td>
+<td>[アクセスキーを入力]</td>
+<td>IAMユーザーcicd-circleci-001で発行したアクセスキー</td>
+</tr>
+<tr>
+<td>AWS_DEFAULT_REGION</td>
+<td>ap-northeast-1</td>
+<td>利用環境を入力</td>
+</tr>
+<tr>
+<td>AWS_SECRET_ACCESS_KEY</td>
+<td>[シークレットアクセスキーを入力]</td>
+<td>IAMユーザーcicd-circleci-001で発行したシークレットアクセスキー</td>
+</tr>
+<tr>
+<td>AWS_ACCOUNT_ID</td>
+<td>[AWSアカウントIDを入力]</td>
+<td>AWSアカウントIDを入力</td>
+</tr>
+<tr>
+<td>AWS_ASSUME_ROLE_ARN</td>
+<td>arn:aws:iam::[account_id]:role/cicd-role-ecrPushImages-001</td>
+<td>権限委任するIAMロールのArn</td>
+</tr>
+<tr>
+<td>AWS_ECR_REGISTORY_NAME</td>
+<td>webapp-dev-ecr-djangoimage</td>
+<td>ECRレジストリ名を記載</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGIONはconfig.ymlで定義されていないがAWSCLI用のOrbを利用する場合, 定義する. 詳しくは, <a href="https://circleci.com/developer/ja/orbs/orb/circleci/aws-cli">circleci/aws-cli@2.0.3</a></li>
+<li>ECR用のOrbも存在するが, 一時認証用のトークンを利用してECRへLoginするものではないため, 今回はconfig上で表現した</li>
+</ul>
+</blockquote>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="フッター">
+      
+        
+        <a href="../cicd_tldr/" class="md-footer__link md-footer__link--prev" aria-label="前: TL;DR" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                前
+              </span>
+              TL;DR
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            hogehoge © 2021 
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "navigation.tabs", "navigation.expand", "navigation.top"], "translations": {"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.82b56eb2.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
